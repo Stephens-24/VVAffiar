@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vincent &amp; Vida — 14 November 2026</title>
+<meta name="description" content="Vincent &amp; Vida are getting married on Saturday 14 November 2026 at St. Peter Parish, Vakpo. Join us and RSVP.">
+<meta property="og:title" content="Vincent &amp; Vida — 14 November 2026">
+<meta property="og:description" content="Together with their families, they invite you to celebrate their love.">
+<meta property="og:image" content="assets/hero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     Mobile-first. Base styles = Figma "Wedding" frame (393px).
+     Tablet  >= 768px, Desktop >= 1024px scale the same design up.
+     ========================================================= */
+  :root {
+    --purple: #800080;
+    --purple-deep: #660066;
+    --purple-bright: #990099;
+    --magenta: #c0c;
+    --blush: #efbafe;
+    --heading: #101828;
+    --ink: #1e1e1e;
+    --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --gutter: 16px;
+  }
+  @media (min-width: 768px) { :root { --gutter: 32px; } }
+  @media (min-width: 1024px) { :root { --gutter: 48px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: #fff; color: var(--ink);
+    font-family: var(--font); font-variation-settings: "opsz" 14, "wdth" 100;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3, p, figure { margin: 0; }
+  :focus-visible { outline: 3px solid var(--blush); outline-offset: 3px; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font: 600 16px/1.2 var(--font); font-variation-settings: "opsz" 14, "wdth" 100;
+    padding: 8px 16px; border: 0; border-radius: 999px; cursor: pointer;
+    background: var(--purple); color: #fff; text-decoration: none; white-space: nowrap;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover { background: var(--purple-bright); }
+  .btn:active { transform: translateY(1px); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Nav / Event Date Bar ---------- */
+  .nav {
+    position: absolute; z-index: 50; top: 32px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 40px); max-width: 350px;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 8px 24px; border-radius: 999px; background: rgba(33, 1, 33, .5); color: #fff;
+  }
+  .nav__brand { font-weight: 600; font-size: 20px; line-height: 1; text-decoration: none; white-space: nowrap; }
+  .nav__rsvp { font-size: 16px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; height: 504px; overflow: hidden; background: #3a003a; color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding: 0 var(--gutter) 48px;
+  }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 18%; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(102, 102, 102, 0) 0%, rgba(0, 0, 0, .86) 88%);
+  }
+  .hero__content { position: relative; z-index: 1; width: 283px; max-width: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .hero h1 { font-weight: 500; font-size: 36px; line-height: 1; white-space: nowrap; text-align: center; }
+  .hero__sub { font: 400 14px/1.2 var(--font-body); text-align: center; }
+
+  /* ---------- Date / RSVP ---------- */
+  /* The RSVP button always sits on the envelope's horizontal line (every screen size).
+     The envelope is full width at its own 393.342 : 175.371 ratio, and its line is 57.847 / 175.371
+     (32.99%) down from its top. So the section must end 67.01% of the envelope's height below the
+     button's centre: 0.6701 x 175.371 / 393.342 = 29.877% of the section width.
+     --rsvp-font / --rsvp-pad-y size the button, so its half-height is 0.6 x font + vertical padding. */
+  .date {
+    --rsvp-font: 14px; --rsvp-pad-y: 8px;
+    position: relative; overflow: hidden; background: var(--purple-deep); color: #fff;
+    container-type: inline-size;
+    padding: 24px var(--gutter) 0;
+    display: flex; justify-content: center;
+  }
+  .date::after {
+    content: ""; position: absolute; z-index: 0; left: 0; right: 0; bottom: 0; pointer-events: none;
+    height: 175px; height: auto; aspect-ratio: 393.342 / 175.371;
+    background: url("assets/figma-date-glow.svg") center bottom / 100% 100% no-repeat;
+  }
+  .date__wrap {
+    position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding-bottom: calc(29.877vw - 0.6 * var(--rsvp-font) - var(--rsvp-pad-y)); /* fallback */
+    padding-bottom: calc(29.877cqw - 0.6 * var(--rsvp-font) - var(--rsvp-pad-y));
+  }
+  .card, .card__insert { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .card__date { display: flex; align-items: center; justify-content: center; gap: 4px; line-height: 1.2; white-space: nowrap; }
+  .card__date span { font: 500 16px/1.2 var(--font-body); }
+  .card__date strong { font-weight: 600; font-size: 40px; line-height: 1.2; }
+  .card__venue { width: 191px; font: 400 16px/1.2 var(--font-body); }
+  .countdown { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .countdown__clock { font: 500 24px/1.2 var(--font); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .countdown__label { font: 400 16px/1.2 var(--font-body); }
+  .date__rsvp { width: 31.8vw; width: 31.8cqw; font-size: var(--rsvp-font); padding: var(--rsvp-pad-y) 16px; background: #fff; color: var(--purple); } /* 125px at 393 = 87% of the envelope line */
+  .date__rsvp:hover { background: #f5d2ff; }
+
+  /* ---------- Gallery ---------- */
+  .gallery { position: relative; background: #111; }
+  .gallery__track {
+    display: flex; height: 300px; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .gallery__track::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 auto; height: 100%; aspect-ratio: 2880 / 3600; overflow: hidden; background: #222; }
+  .slide--wide { aspect-ratio: 2782 / 3600; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery__controls {
+    position: absolute; z-index: 2; left: var(--gutter); right: var(--gutter); bottom: 15px;
+    display: flex; align-items: center; gap: 10px; pointer-events: none; color: #fff;
+  }
+  .gallery__btns { display: flex; gap: 8px; pointer-events: auto; }
+  .gbtn {
+    --size: 24px;
+    position: relative; width: var(--size); height: var(--size); padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+    background: rgba(0, 0, 0, .2); color: #fff; display: grid; place-items: center; transition: background .2s, opacity .2s;
+  }
+  .gbtn:hover:not(:disabled) { background: rgba(255, 255, 255, .25); }
+  .gbtn:disabled { opacity: .35; cursor: default; }
+  .gbtn > svg:not(.gbtn__progress) { width: 60%; height: 60%; }
+  .gbtn .gbtn__progress { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .gbtn__progress circle { fill: none; stroke: rgba(255, 255, 255, .4); stroke-width: 2.75; }
+  .gbtn__progress .gbtn__progress-value { stroke: #fff; stroke-dasharray: 119.4; stroke-dashoffset: 119.4; transform: rotate(-90deg); transform-origin: 22px 22px; }
+  #prev, #next { display: none; }
+  .gallery__bar { display: none; }
+
+  /* ---------- Schedule ---------- */
+  .schedule { padding: 24px var(--gutter); background: #fff; text-align: center; }
+  .schedule h2 { font-weight: 500; font-size: 24px; line-height: 1; color: var(--purple-deep); }
+  .timeline { position: relative; max-width: 338px; margin: 24px auto 0; padding-left: 30px; display: grid; gap: 24px; text-align: left; }
+  .timeline__rail { display: none; }
+  .event { position: relative; display: flex; flex-direction: column; gap: 8px; }
+  .event::before { /* dotted connector below each dot */
+    content: ""; position: absolute; left: -20.5px; top: 39px; bottom: -9px; border-left: 1px dotted var(--purple-bright);
+  }
+  .event:last-child::before { bottom: -1px; }
+  .event__dot {
+    position: absolute; z-index: 1; left: -30px; top: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--blush); display: grid; place-items: center;
+  }
+  .event__dot::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--magenta); }
+  .event__dot svg { display: none; }
+  .event__body { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .badge { background: var(--purple); color: #fff; font: 500 10px/12px var(--font-ui); padding: 8px 16px; border-radius: 1000px; white-space: nowrap; }
+  .event h3 { font: 600 20px/26px var(--font-body); color: var(--heading); }
+  .event__place { display: flex; align-items: center; gap: 2px; font: 400 14px/1.2 var(--font-body); color: var(--ink); }
+  .event__place svg { width: 16px; height: 16px; flex: none; stroke-width: 1.6; }
+  .event__map { display: block; width: 100%; height: 128px; border-radius: 8px; overflow: hidden; background: #e8e3ec; }
+  .event__map img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .event__map:hover img { transform: scale(1.05); }
+  .event__map span { display: none; }
+
+  /* ---------- Gifts ---------- */
+  .gifts {
+    background: var(--purple); color: #fff; text-align: center; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; gap: 70px; padding: 48px var(--gutter) 0;
+  }
+  .gifts__inner { width: 291px; max-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .gifts h2 { font-weight: 500; font-size: 24px; line-height: 1; }
+  .gifts p { font: 400 14px/1 var(--font-body); }
+  .gifts__image-frame {
+    position: relative; overflow: hidden; pointer-events: none;
+    width: calc(100% + 2 * var(--gutter)); margin: 0 calc(-1 * var(--gutter)); aspect-ratio: 393 / 209;
+  }
+  /* object-position bottom reproduces the Figma crop (top -87.23%, height 187.71%) and scales with width */
+  .gifts__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+
+  /* ---------- Closing ---------- */
+  .closing {
+    position: relative; overflow: hidden; color: #fff; text-align: center; background: #111;
+    height: 441px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    gap: 8px; padding: 0 var(--gutter) 48px;
+  }
+  .closing__bg { position: absolute; inset: 0; }
+  .closing__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: grayscale(1); }
+  .closing::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(102,102,102,0) 0%, rgba(0,0,0,.86) 88%); }
+  .closing h2 { position: relative; z-index: 1; font-weight: 500; font-size: 24px; line-height: 1; width: auto; max-width: 100%; }
+  .pill { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .pill__date { display: flex; align-items: center; gap: 4px; line-height: 1.2; white-space: nowrap; }
+  .pill__date span { font: 400 14px/1.2 var(--font-body); }
+  .pill__date strong { font-weight: 600; font-size: 24px; line-height: 1.2; }
+  .closing__tag { position: relative; z-index: 1; font: 500 14px/1 var(--font-body); }
+  .pill .btn { background: #fff; color: var(--purple); }
+  .pill .btn:hover { background: #f5d2ff; }
+
+  /* =========================================================
+     Tablet + desktop (>= 768px)
+     Follows the Figma desktop frame (93:2, 1440px wide). Sizes are fluid:
+     clamp(tablet value, value at 1440 / 14.4 vw, desktop value).
+     Type scale used everywhere on large screens (normalised from Figma):
+       display 116 · closing 64 · section title 48 · countdown 96 · date numeral 128
+       lead / info 40 · body lead 32 · button 32 · tag 24 · small 14–16
+     ========================================================= */
+  @media (min-width: 768px) {
+    /* Nav */
+    .nav { top: clamp(24px, 2.78vw, 40px); max-width: clamp(560px, 50vw, 720px); padding: 10px 12px 10px 28px; }
+    .nav__brand { font-size: clamp(20px, 1.67vw, 24px); }
+    .nav__rsvp { font-size: clamp(16px, 1.25vw, 18px); padding: 10px 24px; }
+
+    /* Large call-to-action buttons: one size for both RSVP buttons */
+    .date__rsvp, .pill .btn {
+      width: auto; font-size: clamp(18px, 2.22vw, 32px);
+      padding: clamp(12px, 1.39vw, 20px) clamp(36px, 5vw, 72px);
+      background: #fff; color: var(--purple);
+    }
+    .date__rsvp:hover, .pill .btn:hover { background: #f5d2ff; }
+
+    /* Hero (Frame 39): full-bleed photo, crop matches Figma */
+    .hero { height: clamp(640px, 71.1vw, 1024px); padding-bottom: clamp(72px, 8.9vw, 128px); }
+    .hero__bg img { object-position: 50% 25%; }
+    .hero__content { width: clamp(460px, 63.4vw, 913px); gap: clamp(12px, 1.1vw, 16px); }
+    .hero h1 { font-weight: 500; font-size: clamp(64px, 8.06vw, 116px); text-align: center; }
+    .hero__sub { font-size: clamp(18px, 2.5vw, 36px); line-height: 1.2; }
+
+    /* Date / RSVP section (129:128) */
+    .date { --rsvp-font: clamp(18px, 2.22vw, 32px); --rsvp-pad-y: clamp(12px, 1.39vw, 20px); padding-top: clamp(56px, 8.6vw, 124px); }
+    .date__wrap { gap: clamp(24px, 3.9vw, 56px); }
+    .card__date { gap: clamp(8px, 1vw, 14px); }
+    .card__date span { font-size: clamp(20px, 3.33vw, 48px); }
+    .card__date strong { font-size: clamp(56px, 8.89vw, 128px); line-height: 1.1; }
+    .card__venue { width: clamp(280px, 48.6vw, 700px); font-size: clamp(20px, 3.33vw, 48px); }
+    .countdown__clock { font-size: clamp(44px, 6.67vw, 96px); }
+    .countdown__label { font-size: clamp(20px, 3.33vw, 48px); }
+    .date__rsvp { width: 31.8vw; width: 31.8cqw; font-size: var(--rsvp-font); padding: var(--rsvp-pad-y) 16px; } /* stays on the envelope line */
+
+    /* Gallery (95:556) */
+    .gallery__track { height: clamp(420px, 52.7vw, 759px); }
+    .gallery__controls { left: clamp(32px, 5.56vw, 80px); right: clamp(32px, 5.56vw, 80px); bottom: clamp(24px, 2.78vw, 40px); justify-content: space-between; }
+    .gbtn { --size: clamp(32px, 2.78vw, 40px); }
+    .gbtn__progress circle { stroke-width: 2; }
+
+    /* Schedule */
+    .schedule { padding: clamp(56px, 8.3vw, 120px) var(--gutter); }
+    .schedule h2 { font-size: clamp(32px, 3.33vw, 48px); }
+    .timeline { max-width: 560px; margin-top: 32px; gap: 32px; }
+    .event::before { bottom: -17px; }
+    .event:last-child::before { bottom: -1px; }
+    .badge { font-size: 14px; line-height: 17px; }
+    .event h3 { font-size: 24px; line-height: 30px; }
+    .event__place { font-size: 16px; }
+    .event__place svg { width: 18px; height: 18px; }
+    .event__map { height: 200px; }
+
+    /* Gifts (99:7248) */
+    .gifts { gap: clamp(72px, 8.9vw, 128px); padding-top: clamp(56px, 5.56vw, 80px); }
+    .gifts__inner { width: clamp(480px, 50.2vw, 723px); gap: 12px; }
+    .gifts h2 { font-size: clamp(32px, 3.33vw, 48px); }
+    .gifts p { font-size: clamp(18px, 2.22vw, 32px); line-height: 1.2; }
+    .gifts__image-frame { aspect-ratio: 1440 / 628; }
+    .gifts__bg { object-position: 50% 81%; } /* Figma crop: top -104.46%, height 229.3% */
+
+    /* Closing (105:33) */
+    .closing { height: clamp(600px, 76.7vw, 1105px); padding-bottom: clamp(72px, 8.9vw, 128px); gap: clamp(12px, 1.25vw, 18px); }
+    .closing__bg img { object-position: 50% 27%; }
+    .closing h2 { font-size: clamp(44px, 4.44vw, 64px); width: auto; white-space: nowrap; } /* one line on desktop (Figma 129:144) */
+    .pill { gap: clamp(16px, 1.78vw, 26px); }
+    .pill__date { gap: clamp(8px, 0.9vw, 13px); }
+    .pill__date span { font-size: clamp(20px, 3.33vw, 48px); }
+    .pill__date strong { font-size: clamp(36px, 4.44vw, 64px); }
+    .closing__tag { font-size: clamp(16px, 2.5vw, 36px); }
+  }
+
+  /* =================== Desktop (>= 1024px): horizontal schedule (99:7234) =================== */
+  @media (min-width: 1024px) {
+    .timeline {
+      max-width: 1036px; margin-top: 24px; padding: 30px 0 0;
+      grid-template-columns: repeat(3, 1fr); gap: 64px;
+    }
+    .event { align-items: center; text-align: center; gap: 8px; }
+    .event__body { align-items: center; }
+    /* dot centred above each column, white ring + check (Figma "Timeline dots") */
+    .event__dot { left: 50%; top: -30px; transform: translateX(-50%); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--blush); }
+    .event__dot::after { display: none; }
+    .event__dot svg { display: block; width: 10px; height: 10px; }
+    /* dotted line from this dot to the next one, 12px clear of each */
+    .event::before { left: calc(50% + 22px); right: auto; top: -20px; bottom: auto; width: calc(100% + 64px - 44px); height: 0; border-left: 0; border-top: 1px dotted var(--purple-bright); }
+    .event:last-child::before { display: none; }
+    .event__map { height: 128px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .event__map img { transition: none; }
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- RSVP dialog ---------- */
+  dialog.rsvp {
+    border: 0; padding: 0; border-radius: 24px; width: min(520px, calc(100% - 32px)); max-height: calc(100vh - 32px); overflow: auto;
+    background: #fff; color: var(--ink); box-shadow: 0 40px 120px rgba(0, 0, 0, .5);
+  }
+  dialog.rsvp::backdrop { background: rgba(40, 0, 40, .65); backdrop-filter: blur(6px); }
+  .rsvp__head { background: #fff; color: var(--heading); padding: 28px 32px 0; position: relative; }
+  .rsvp__head h2 { font-weight: 600; font-size: 28px; line-height: 1.1; color: var(--purple-deep); }
+  .rsvp__head p { margin-top: 6px; font: 400 15px/1.3 var(--font-body); color: #6b6170; }
+  .rsvp__close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #f3eef5; color: var(--heading); font-size: 22px; line-height: 1; cursor: pointer; }
+  .rsvp__close:hover { background: #e8dfec; }
+  .rsvp form { padding: 24px 32px 32px; display: grid; gap: 18px; }
+  .field { display: grid; gap: 6px; }
+  .field label, .field legend { font-weight: 600; font-size: 15px; color: var(--heading); padding: 0; }
+  .field input[type=text], .field input[type=email], .field input[type=number], .field select, .field textarea {
+    font: 400 16px var(--font); padding: 12px 14px; border: 1.5px solid #d6cddc; border-radius: 12px; width: 100%; background: #fff;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(128, 0, 128, .18); }
+  fieldset.field { border: 0; margin: 0; padding: 0; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .choice input { position: absolute; opacity: 0; }
+  .choice span { display: block; text-align: center; padding: 12px; border: 1.5px solid #d6cddc; border-radius: 12px; cursor: pointer; font-weight: 500; transition: all .15s; }
+  .choice input:checked + span { background: var(--purple); border-color: var(--purple); color: #fff; }
+  .choice input:focus-visible + span { outline: 3px solid var(--blush); outline-offset: 2px; }
+  .rsvp .submit { font: 600 20px var(--font); padding: 14px; border: 0; border-radius: 999px; background: var(--purple); color: #fff; cursor: pointer; transition: background .2s; }
+  .rsvp .submit:hover { background: var(--purple-bright); }
+  .rsvp .submit:disabled { opacity: .6; cursor: progress; }
+  .rsvp__done { padding: 48px 32px; text-align: center; display: none; }
+  .rsvp__done h3 { font-size: 34px; color: var(--purple); font-weight: 600; }
+  .rsvp__done p { margin-top: 10px; font-size: 18px; }
+  .rsvp__done .btn { margin-top: 24px; font-size: 20px; background: var(--purple); color: #fff; }
+  .rsvp.sent form, .rsvp.sent .rsvp__head p { display: none; }
+  .rsvp.sent .rsvp__done { display: block; }
+  .err { color: #b00020; font-size: 14px; min-height: 1em; }
+  .rsvp__handle { display: none; }
+
+  /* ---------- Background music toggle ---------- */
+  .music {
+    position: fixed; z-index: 60;
+    right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 44px; height: 44px; border: 0; border-radius: 50%; padding: 0; cursor: pointer;
+    display: grid; place-items: center; background: var(--purple); color: #fff;
+    box-shadow: 0 6px 20px rgba(40, 0, 40, .35); transition: background .2s, transform .2s;
+  }
+  .music:hover { background: var(--purple-bright); }
+  .music:active { transform: scale(.95); }
+  .music svg { width: 20px; height: 20px; }
+  .music__bars { display: none; align-items: flex-end; gap: 2px; height: 16px; }
+  .music__bars i { width: 3px; height: 40%; border-radius: 2px; background: #fff; animation: music-bar 0.9s ease-in-out infinite; }
+  .music__bars i:nth-child(2) { animation-delay: -.3s; }
+  .music__bars i:nth-child(3) { animation-delay: -.6s; }
+  .music.is-playing .music__bars { display: flex; }
+  .music.is-playing .music__note { display: none; }
+  @keyframes music-bar { 0%, 100% { height: 30%; } 50% { height: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .music__bars i { animation: none; height: 70%; } }
+  @media (min-width: 1024px) { .music { right: calc(24px + env(safe-area-inset-right, 0px)); bottom: 24px; width: 52px; height: 52px; } .music svg { width: 22px; height: 22px; } }
+  /* the YouTube player only provides the sound, so it is kept out of view */
+  .music__player { position: fixed; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; }
+
+  /* ---------- RSVP as a bottom sheet on phones ---------- */
+  @media (max-width: 767px) {
+    html.sheet-open { overflow: hidden; }
+    dialog.rsvp {
+      position: fixed; inset: auto 0 0 0; margin: 0; width: 100%; max-width: 100%;
+      max-height: 92vh; max-height: 92dvh; border-radius: 24px 24px 0 0;
+      padding-bottom: env(safe-area-inset-bottom, 0px); overscroll-behavior: contain;
+      box-shadow: 0 -20px 60px rgba(0, 0, 0, .35);
+      transform: translateY(100%); transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+    }
+    dialog.rsvp.is-open { transform: translateY(0); }
+    .rsvp__head { position: sticky; top: 0; z-index: 2; padding: 28px 20px 16px; border-bottom: 1px solid #f0eaf2; touch-action: none; cursor: grab; }
+    .rsvp__handle { display: block; position: absolute; top: 10px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 99px; background: #d9d1dd; }
+    .rsvp__head h2 { font-size: 24px; }
+    .rsvp__head p { font-size: 14px; padding-right: 40px; }
+    .rsvp__close { top: 22px; right: 16px; width: 32px; height: 32px; font-size: 18px; }
+    .rsvp form { padding: 16px 20px 24px; gap: 16px; }
+    .field label, .field legend { font-size: 14px; }
+    .field input[type=text], .field input[type=email], .field select, .field textarea { font-size: 16px; padding: 11px 12px; } /* 16px stops iOS zooming in */
+    .choice span { font-size: 15px; padding: 11px 8px; }
+    .rsvp .submit { font-size: 17px; padding: 13px; }
+    .err { font-size: 13px; }
+    .rsvp__done { padding: 40px 20px 32px; }
+    .rsvp__done h3 { font-size: 24px; }
+    .rsvp__done p { font-size: 15px; }
+    .rsvp__done .btn { font-size: 16px; }
+  }
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    dialog.rsvp { transition: none; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">Vincent &amp; Vida</a>
+  <button class="btn nav__rsvp" data-open-rsvp>RSVP</button>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__bg"><img src="assets/hero.png" alt="Vida smiling in the foreground with Vincent softly out of focus behind her" fetchpriority="high"></div>
+    <div class="hero__content">
+      <h1 id="hero-title" class="reveal">Vincent &amp; Vida</h1>
+      <p class="hero__sub reveal">Together with their families, they invite you to celebrate their love as they begin a beautiful lifetime together.</p>
+    </div>
+  </section>
+
+  <!-- ============ SAVE THE DATE ============ -->
+  <section class="date" id="date" aria-label="Wedding date and venue">
+    <div class="date__wrap reveal">
+      <div class="card">
+        <div class="card__insert">
+          <div class="card__date">
+            <span>Saturday</span><strong>14</strong><span>Nov. 2026</span>
+          </div>
+          <p class="card__venue">St. Peter Parish, Vakpo</p>
+        </div>
+      </div>
+      <p class="countdown" id="countdown" aria-live="polite"><span class="countdown__clock" id="countdown-clock"></span><span class="countdown__label" id="countdown-label"></span></p>
+      <button class="btn date__rsvp" data-open-rsvp>RSVP</button>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="gallery" id="gallery" aria-roledescription="carousel" aria-label="Photo gallery">
+    <div class="gallery__track" id="track" tabindex="0">
+      <figure class="slide slide--wide" style="margin:0"><img src="assets/bw.png" alt="Vincent kissing Vida's hand in black and white" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g1.png" alt="Vincent and Vida seated close together" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g2.png" alt="Vida and Vincent portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g3.png" alt="Vida holding red roses" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g4.png" alt="Vincent and Vida laughing together" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g5.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g6.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g7.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/hero.png" alt="Vida close-up portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g9.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g10.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+      <figure class="slide" style="margin:0"><img src="assets/g11.png" alt="Vincent and Vida portrait" loading="lazy"></figure>
+    </div>
+    <div class="gallery__controls">
+      <div class="gallery__btns">
+        <button class="gbtn" id="toggle-autoplay" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg class="gbtn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg><svg class="gbtn__progress" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle id="story-progress" class="gbtn__progress-value" cx="22" cy="22" r="19"/></svg></button>
+        <button class="gbtn" id="prev" aria-label="Previous photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="gbtn" id="next" aria-label="Next photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="gallery__bar" role="presentation"><i id="bar"></i></div>
+    </div>
+  </section>
+
+  <!-- ============ SCHEDULE ============ -->
+  <section class="schedule" id="schedule" aria-labelledby="schedule-title">
+    <h2 id="schedule-title" class="reveal">Schedule</h2>
+    <div class="timeline reveal">
+      <span class="timeline__rail" aria-hidden="true"></span>
+
+      <article class="event">
+        <span class="event__dot" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="#909" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2l2 2L8 3"/></svg></span>
+        <div class="event__body">
+          <span class="badge">14 November, 2026 | 8:00 AM</span>
+          <h3>Engagement</h3>
+          <p class="event__place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Family Residence</p>
+        </div>
+        <a class="event__map" href="https://www.google.com/maps/search/?api=1&query=Vakpo%2C+Ghana" target="_blank" rel="noopener" aria-label="Open Family Residence in Google Maps"><img src="assets/map.png" alt="" loading="lazy"><span>Open in Maps</span></a>
+      </article>
+
+      <article class="event">
+        <span class="event__dot" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="#909" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2l2 2L8 3"/></svg></span>
+        <div class="event__body">
+          <span class="badge">14 November, 2026 | 8:00 AM</span>
+          <h3>White Wedding</h3>
+          <p class="event__place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>St. Peter Parish, Vakpo</p>
+        </div>
+        <a class="event__map" href="https://www.google.com/maps/search/?api=1&query=St+Peter+Parish+Vakpo+Ghana" target="_blank" rel="noopener" aria-label="Open St. Peter Parish Vakpo in Google Maps"><img src="assets/map.png" alt="" loading="lazy"><span>Open in Maps</span></a>
+      </article>
+
+      <article class="event">
+        <span class="event__dot" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="#909" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2l2 2L8 3"/></svg></span>
+        <div class="event__body">
+          <span class="badge">14 November, 2026 | 8:00 AM</span>
+          <h3>Reception</h3>
+          <p class="event__place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Landmark Adjacent Janell hotel</p>
+        </div>
+        <a class="event__map" href="https://www.google.com/maps/search/?api=1&query=Janell+Hotel+Vakpo+Ghana" target="_blank" rel="noopener" aria-label="Open Janell hotel in Google Maps"><img src="assets/map.png" alt="" loading="lazy"><span>Open in Maps</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ GIFTS ============ -->
+  <section class="gifts" id="gifts" aria-labelledby="gifts-title">
+    <div class="gifts__inner reveal">
+      <h2 id="gifts-title">Gifts</h2>
+      <p>Your presence is our greatest gift. Thank you for celebrating our love. If you wish to give, a gift table will be at the entrance.</p>
+    </div>
+    <div class="gifts__image-frame" aria-hidden="true">
+      <img class="gifts__bg" src="assets/red-bg.png" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="closing" aria-labelledby="closing-title">
+    <div class="closing__bg"><img src="assets/bw.png" alt="" aria-hidden="true" loading="lazy"></div>
+    <h2 id="closing-title" class="reveal">In you, I found my forever</h2>
+    <div class="pill reveal">
+      <div class="pill__date"><span>Saturday</span><strong>14</strong><span>Nov. 2026</span></div>
+      <button class="btn" data-open-rsvp>RSVP</button>
+    </div>
+    <p class="closing__tag">#VVAffair26</p>
+  </section>
+</main>
+
+
+<!-- ============ RSVP DIALOG ============ -->
+<dialog class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="rsvp__head">
+    <span class="rsvp__handle" aria-hidden="true"></span>
+    <button class="rsvp__close" type="button" aria-label="Close" data-close>&times;</button>
+    <h2 id="rsvp-title">RSVP</h2>
+    <p>Saturday 14 Nov. 2026 &middot; St. Peter Parish, Vakpo</p>
+  </div>
+  <form id="rsvp-form" novalidate>
+    <div class="field">
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required>
+      <span class="err" data-err="name"></span>
+    </div>
+    <div class="field">
+      <label for="email">Email <span style="font-weight:400;color:#777">(optional)</span></label>
+      <input id="email" name="email" type="email" autocomplete="email">
+      <span class="err" data-err="email"></span>
+    </div>
+    <fieldset class="field">
+      <legend>Will you be joining us?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="attending" value="yes" checked><span>Joyfully accept</span></label>
+        <label class="choice"><input type="radio" name="attending" value="no"><span>Regretfully decline</span></label>
+      </div>
+    </fieldset>
+    <div class="field" id="guests-field">
+      <label for="guests">Number of guests (including you)</label>
+      <select id="guests" name="guests">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="message">A message for the couple <span style="font-weight:400;color:#777">(optional)</span></label>
+      <textarea id="message" name="message" rows="3"></textarea>
+    </div>
+    <button class="submit" type="submit">Send RSVP</button>
+    <span class="err" id="form-err" role="alert"></span>
+  </form>
+  <div class="rsvp__done" role="status">
+    <h3 id="done-title">Thank you!</h3>
+    <p id="done-msg"></p>
+    <button class="btn" type="button" data-close>Close</button>
+  </div>
+</dialog>
+
+<!-- ============ BACKGROUND MUSIC ============ -->
+<button class="music" id="music" type="button" aria-pressed="false" aria-label="Play music">
+  <svg class="music__note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  <span class="music__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<div class="music__player" aria-hidden="true"><div id="yt-player"></div></div>
+
+<script>
+(() => {
+  /* ---- Config: paste the Google Apps Script "Web app" URL here (ends in /exec).
+         RSVPs are then added as rows to the Google Sheet. See rsvp-google-sheet/Code.gs ---- */
+  const RSVP_ENDPOINT = "";
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  /* Nav solidifies after hero */
+  const nav = $("#nav");
+  const onScroll = () => nav.classList.toggle("solid", window.scrollY > window.innerHeight * 0.6);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  /* Reveal on scroll */
+  const io = "IntersectionObserver" in window
+    ? new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 })
+    : null;
+  $$(".reveal").forEach(el => io ? io.observe(el) : el.classList.add("in"));
+
+  /* Countdown */
+  const countdownClock = $("#countdown-clock"), countdownLabel = $("#countdown-label");
+  const target = new Date("2026-11-14T08:00:00");
+  const twoDigits = value => String(value).padStart(2, "0");
+  const tick = () => {
+    const secondsLeft = Math.max(0, Math.floor((target - new Date()) / 1000));
+    const days = Math.floor(secondsLeft / 86400);
+    const hours = Math.floor(secondsLeft % 86400 / 3600);
+    const minutes = Math.floor(secondsLeft % 3600 / 60);
+    const seconds = secondsLeft % 60;
+    countdownClock.textContent = `${days}:${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(seconds)}`;
+    countdownLabel.textContent = secondsLeft > 0 ? `${days} day${days === 1 ? "" : "s"} to go` : "Today is the day!";
+  };
+  tick(); setInterval(tick, 1000);
+
+  /* Gallery */
+  const track = $("#track"), prev = $("#prev"), next = $("#next"), bar = $("#bar"), autoplayButton = $("#toggle-autoplay");
+  const step = () => track.clientWidth * 0.8;
+  const sync = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    const p = max > 0 ? track.scrollLeft / max : 0;
+    const frac = track.clientWidth / track.scrollWidth;
+    bar.style.width = (frac + (1 - frac) * p) * 100 + "%";
+    prev.disabled = track.scrollLeft < 4;
+    next.disabled = track.scrollLeft > max - 4;
+  };
+  const gallery = track.closest(".gallery");
+  const autoplayAllowed = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let userPaused = false;
+  const originalSlides = [...track.children];
+  originalSlides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.querySelectorAll("img").forEach(img => img.alt = "");
+    track.append(clone);
+  });
+  let loopWidth = 0, slideWidths = [], animationFrame = 0, slideshowTimer = 0, previousFrame = 0;
+  const storyProgress = $("#story-progress"), storyCircumference = 119.4;
+  const measureLoop = () => {
+    slideWidths = originalSlides.map(slide => slide.getBoundingClientRect().width);
+    loopWidth = slideWidths.reduce((sum, width) => sum + width, 0);
+  };
+  const stopAutoplay = () => {
+    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(slideshowTimer);
+    animationFrame = 0;
+    slideshowTimer = 0;
+    previousFrame = 0;
+  };
+  const animateStory = timestamp => {
+    if (!previousFrame) previousFrame = timestamp;
+    const elapsed = Math.min(timestamp - previousFrame, 50);
+    previousFrame = timestamp;
+    track.scrollLeft += elapsed * 0.032;
+    if (loopWidth > 0 && track.scrollLeft >= loopWidth) track.scrollLeft -= loopWidth;
+    const position = loopWidth > 0 ? track.scrollLeft % loopWidth : 0;
+    let slideStartPosition = 0, currentSlide = 0;
+    for (; currentSlide < slideWidths.length - 1; currentSlide++) {
+      if (position < slideStartPosition + slideWidths[currentSlide]) break;
+      slideStartPosition += slideWidths[currentSlide];
+    }
+    const currentWidth = slideWidths[currentSlide] || 1;
+    const progress = Math.min((position - slideStartPosition) / currentWidth, 1);
+    storyProgress.style.strokeDashoffset = String(storyCircumference * (1 - progress));
+    slideshowTimer = requestAnimationFrame(animateStory);
+  };
+  const startAutoplay = (force = false) => {
+    stopAutoplay();
+    measureLoop();
+    if (autoplayAllowed && !userPaused && !document.hidden && (force || (!gallery.matches(":hover") && !gallery.contains(document.activeElement)))) {
+      slideshowTimer = requestAnimationFrame(animateStory);
+    }
+  };
+  autoplayButton.addEventListener("click", () => {
+    userPaused = !userPaused;
+    autoplayButton.setAttribute("aria-pressed", String(userPaused));
+    autoplayButton.setAttribute("aria-label", userPaused ? "Play slideshow" : "Pause slideshow");
+    $(".gbtn__icon", autoplayButton).innerHTML = userPaused
+      ? '<path d="M8 5v14l11-7z"/>'
+      : '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>';
+    if (userPaused) stopAutoplay();
+    else startAutoplay(true);
+  });
+  gallery.addEventListener("mouseenter", stopAutoplay);
+  gallery.addEventListener("mouseleave", startAutoplay);
+  gallery.addEventListener("focusin", stopAutoplay);
+  gallery.addEventListener("focusout", e => {
+    if (!gallery.contains(e.relatedTarget)) startAutoplay();
+  });
+  document.addEventListener("visibilitychange", startAutoplay);
+  addEventListener("resize", () => { measureLoop(); startAutoplay(); });
+  startAutoplay();
+  prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+  next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  track.addEventListener("scroll", sync, { passive: true });
+  track.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") track.scrollBy({ left: step(), behavior: "smooth" });
+    if (e.key === "ArrowLeft") track.scrollBy({ left: -step(), behavior: "smooth" });
+  });
+  addEventListener("resize", sync); sync();
+  // Desktop drag-to-scroll
+  let down = false, sx = 0, sl = 0;
+  track.addEventListener("pointerdown", e => { if (e.pointerType === "mouse") { down = true; sx = e.clientX; sl = track.scrollLeft; track.style.scrollSnapType = "none"; } });
+  addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
+  addEventListener("pointerup", () => { if (down) { down = false; track.style.scrollSnapType = ""; } });
+
+  /* RSVP dialog */
+  const dlg = $("#rsvp"), form = $("#rsvp-form");
+  const asSheet = matchMedia("(max-width: 767px)");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const finishClose = () => {
+    dlg.classList.remove("is-open");
+    dlg.style.transform = "";
+    document.documentElement.classList.remove("sheet-open");
+    if (dlg.open) dlg.close ? dlg.close() : dlg.removeAttribute("open");
+  };
+  const open = () => {
+    dlg.classList.remove("sent");
+    dlg.style.transform = "";
+    dlg.showModal ? dlg.showModal() : dlg.setAttribute("open", "");
+    if (asSheet.matches) {
+      document.documentElement.classList.add("sheet-open");
+      dlg.scrollTop = 0;
+      // two frames so the sheet starts off-screen, then slides up
+      requestAnimationFrame(() => requestAnimationFrame(() => dlg.classList.add("is-open")));
+    } else {
+      dlg.classList.add("is-open");
+      setTimeout(() => $("#name").focus(), 50); // no auto-focus on phones, so the keyboard doesn't cover the sheet
+    }
+  };
+  const close = () => {
+    if (!asSheet.matches || reduceMotion.matches || !dlg.classList.contains("is-open")) return finishClose();
+    dlg.style.transform = "";
+    dlg.classList.remove("is-open"); // slides down
+    let done = false, timer = 0;
+    const end = e => {
+      if (done || (e && e.target !== dlg)) return; // ignore transitions bubbling up from buttons/inputs
+      done = true;
+      clearTimeout(timer);
+      dlg.removeEventListener("transitionend", end);
+      finishClose();
+    };
+    dlg.addEventListener("transitionend", end);
+    timer = setTimeout(end, 400);
+  };
+  $$("[data-open-rsvp]").forEach(b => b.addEventListener("click", open));
+  $$("[data-close]").forEach(b => b.addEventListener("click", close));
+  dlg.addEventListener("click", e => { if (e.target === dlg) close(); });
+  dlg.addEventListener("cancel", e => { e.preventDefault(); close(); }); // Esc / back gesture
+  dlg.addEventListener("close", () => { dlg.classList.remove("is-open"); document.documentElement.classList.remove("sheet-open"); });
+
+  /* Swipe the sheet's header down to dismiss */
+  const sheetHead = $(".rsvp__head", dlg);
+  let dragStartY = null, dragDistance = 0, dragStartTime = 0;
+  sheetHead.addEventListener("pointerdown", e => {
+    if (!asSheet.matches || e.target.closest("button")) return;
+    dragStartY = e.clientY; dragDistance = 0; dragStartTime = performance.now();
+    dlg.style.transition = "none";
+    sheetHead.setPointerCapture(e.pointerId);
+  });
+  sheetHead.addEventListener("pointermove", e => {
+    if (dragStartY === null) return;
+    dragDistance = Math.max(0, e.clientY - dragStartY);
+    dlg.style.transform = `translateY(${dragDistance}px)`;
+  });
+  const endDrag = () => {
+    if (dragStartY === null) return;
+    dragStartY = null;
+    dlg.style.transition = "";
+    const fastFlick = dragDistance > 40 && dragDistance / (performance.now() - dragStartTime) > 0.5;
+    if (dragDistance > dlg.offsetHeight * 0.25 || fastFlick) close();
+    else dlg.style.transform = "";
+  };
+  sheetHead.addEventListener("pointerup", endDrag);
+  sheetHead.addEventListener("pointercancel", endDrag);
+
+  $$("input[name=attending]").forEach(r => r.addEventListener("change", () => {
+    $("#guests-field").style.display = r.value === "no" && r.checked ? "none" : "";
+  }));
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    $$(".err").forEach(x => x.textContent = "");
+    const data = Object.fromEntries(new FormData(form));
+    data.name = (data.name || "").trim();
+    let ok = true;
+    if (!data.name) { $('[data-err=name]').textContent = "Please enter your name."; ok = false; }
+    if (data.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) { $('[data-err=email]').textContent = "That email doesn't look right."; ok = false; }
+    if (!ok) return;
+
+    const btn = $(".submit", form); btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      if (RSVP_ENDPOINT) {
+        // Form-encoded "simple" request: Google Apps Script accepts it without a CORS preflight.
+        const res = await fetch(RSVP_ENDPOINT, { method: "POST", body: new URLSearchParams(data) });
+        const result = await res.json().catch(() => ({ ok: res.ok }));
+        if (!res.ok || !result.ok) throw new Error(result.error || "Request failed");
+      } else {
+        console.warn("RSVP_ENDPOINT is empty, so this RSVP was not saved anywhere.");
+      }
+      const yes = data.attending === "yes";
+      $("#done-title").textContent = yes ? "We can’t wait to see you!" : "You’ll be missed";
+      $("#done-msg").textContent = yes
+        ? `Thank you, ${data.name.split(" ")[0]}. Your RSVP for ${data.guests} guest${data.guests === "1" ? "" : "s"} has been received.`
+        : `Thank you for letting us know, ${data.name.split(" ")[0]}. We’ll be thinking of you on the day.`;
+      dlg.classList.add("sent"); form.reset();
+    } catch (err) {
+      $("#form-err").textContent = "Something went wrong sending your RSVP. Please try again.";
+    } finally {
+      btn.disabled = false; btn.textContent = "Send RSVP";
+    }
+  });
+  /* ---- Background music: "See What The Lord Has Done" (Nathaniel Bassey) via YouTube ----
+     Browsers block sound until the visitor interacts, so music starts on their first tap/click/key
+     anywhere on the page (or via the music button), loops, and pauses while the tab is hidden. */
+  const MUSIC_VIDEO_ID = "lMAM2lbUxQU";
+  const MUSIC_VOLUME = 60; // 0–100
+  const musicButton = $("#music");
+  let ytPlayer = null, playerReady = false, wantMusic = false, userStopped = false, pausedByHidden = false;
+
+  const setMusicUI = playing => {
+    musicButton.classList.toggle("is-playing", playing);
+    musicButton.setAttribute("aria-pressed", String(playing));
+    musicButton.setAttribute("aria-label", playing ? "Pause music" : "Play music");
+  };
+  const playMusic = () => { wantMusic = true; if (playerReady) { ytPlayer.unMute(); ytPlayer.setVolume(MUSIC_VOLUME); ytPlayer.playVideo(); } };
+  const pauseMusic = () => { wantMusic = false; if (playerReady) ytPlayer.pauseVideo(); setMusicUI(false); };
+
+  window.onYouTubeIframeAPIReady = () => {
+    ytPlayer = new YT.Player("yt-player", {
+      width: 1, height: 1, videoId: MUSIC_VIDEO_ID,
+      playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: MUSIC_VIDEO_ID, playsinline: 1, rel: 0, modestbranding: 1 },
+      events: {
+        onReady: () => { playerReady = true; ytPlayer.setVolume(MUSIC_VOLUME); if (wantMusic) playMusic(); },
+        onStateChange: e => {
+          if (e.data === YT.PlayerState.PLAYING) setMusicUI(true);
+          else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) setMusicUI(false);
+          if (e.data === YT.PlayerState.ENDED) ytPlayer.playVideo(); // loop fallback
+        },
+      },
+    });
+  };
+  const ytScript = document.createElement("script");
+  ytScript.src = "https://www.youtube.com/iframe_api";
+  ytScript.async = true;
+  document.head.append(ytScript);
+
+  musicButton.addEventListener("click", () => {
+    if (musicButton.classList.contains("is-playing") || wantMusic) { userStopped = true; pauseMusic(); }
+    else { userStopped = false; playMusic(); }
+  });
+  const startOnFirstInteraction = e => {
+    removeEventListener("pointerdown", startOnFirstInteraction, true);
+    removeEventListener("keydown", startOnFirstInteraction, true);
+    if (e.target.closest && e.target.closest("#music")) return; // the button handles itself
+    if (!userStopped) playMusic();
+  };
+  addEventListener("pointerdown", startOnFirstInteraction, true);
+  addEventListener("keydown", startOnFirstInteraction, true);
+  document.addEventListener("visibilitychange", () => {
+    if (!playerReady) return;
+    if (document.hidden && wantMusic) { pausedByHidden = true; ytPlayer.pauseVideo(); }
+    else if (!document.hidden && pausedByHidden) { pausedByHidden = false; if (wantMusic) ytPlayer.playVideo(); }
+  });
+})();
+</script>
+</body>
+</html>

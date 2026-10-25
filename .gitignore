@@ -1,0 +1,12 @@
+# Figma download helper (its links have expired)
+fetch-assets.sh
+
+# Images no longer used by the page
+assets/texture.png
+assets/gif.png
+assets/figma-date-section.png
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
